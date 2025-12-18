@@ -1,0 +1,35 @@
+Orden de Precedencia en Python
+Aquí profundizamos en el orden que mencionaste, desde la mayor precedencia (se evalúa primero) a la menor:
+
+Paréntesis ( ): Tienen la máxima prioridad. Las operaciones dentro de los paréntesis siempre se resuelven primero. Usar paréntesis es una excelente práctica para aclarar el orden de las operaciones, incluso si el orden de precedencia estándar ya lo determina.
+
+Ejemplo: (5 + 3) * 2 daría como resultado 16, ya que la suma se hace primero.
+
+Exponenciación **: Los exponentes se calculan antes de la multiplicación o la división.
+
+Ejemplo: 2 ** 3 * 4 se evalúa como 8 * 4, lo que da como resultado 32.
+
+Multiplicación *, División /, Módulo %, División Entera //: Estos operadores tienen la misma precedencia. Si una expresión contiene varios de ellos, se evalúan de izquierda a derecha.
+
+Ejemplo: $10 / 2 * 3$ se resuelve de izquierda a derecha: 5 * 3, lo que da 15.
+
+Suma + y Resta -: Tienen menor precedencia que los operadores de multiplicación y división. Se evalúan de izquierda a derecha.
+
+Ejemplo: 5 + 10 / 2 se evalúa como 5 + 5, lo que da 10.
+
+Operadores de Comparación ==, !=, >, <, >=, <=: Estos operadores se utilizan para comparar valores y devuelven un valor booleano (True o False). Tienen una precedencia más baja que los operadores aritméticos.
+
+Ejemplo: $5 + 3 > 7$ se evalúa como 8 > 7, lo que da True.
+
+Operadores Lógicos not, and, or: Estos operadores se utilizan para combinar expresiones booleanas. Tienen la menor precedencia, con not siendo el de mayor prioridad, seguido de and y finalmente or.
+
+Ejemplo: True or False and not False se evalúa de la siguiente manera:
+
+not False es True.
+
+False and True es False.
+
+True or False es True.
+
+Un consejo práctico
+Aunque es útil conocer las reglas de precedencia, la mejor práctica en programación es usar paréntesis para agrupar las operaciones y hacer que tu intención sea explícita. Esto no solo asegura que el código se ejecute como esperas, sino que también lo hace mucho más legible para ti y para otros programadores. Por ejemplo, en lugar de confiar en la precedencia para resolver $a + b * c$, es más claro escribir a + (b * c).
