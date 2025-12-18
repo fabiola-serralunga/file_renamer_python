@@ -121,3 +121,8 @@ Estas mejoras no se incluyen en esta versión para mantener claridad y foco.
 
 Proyecto desarrollado como parte de un proceso de formación y construcción de portfolio en Python.
 
+## 📄 Licencia
+
+Este proyecto está licenciado bajo la licencia MIT.
+Ver el archivo LICENSE para más información.
+
