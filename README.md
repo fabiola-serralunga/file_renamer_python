@@ -1,8 +1,8 @@
 # File Renamer Python
 
-Herramienta en Python para **renombrar archivos de forma segura y controlada**, desarrollada como **proyecto de portfolio** enfocado en automatización y buenas prácticas de backend, aplicando reglas de normalización y numeración automática.
+Herramienta en Python para **renombrar archivos de forma segura y controlada**, desarrollada como **proyecto de portfolio** enfocado en automatización y buenas prácticas de backend.
 
-El proyecto está pensado como una utilidad simple pero profesional, orientada a automatización y buenas prácticas (diseño modular, dry-run por defecto, documentación clara).
+El proyecto implementa una **interfaz de línea de comandos (CLI)** basada en `argparse`, con modo seguro (*dry-run*) por defecto y un punto de entrada claro mediante ejecución como módulo.
 
 ---
 
@@ -21,6 +21,8 @@ Renombrar archivos dentro de una carpeta:
 ```
 file_renamer_python/
 ├── README.md
+├── .gitignore
+├── LICENSE
 ├── requirements.txt
 ├── app/
 │   ├── __init__.py
@@ -28,42 +30,40 @@ file_renamer_python/
 │   ├── renamer.py
 │   └── rules.py
 └── examples/
-    └── test_files/
+    ├── test_files/
+    └── test_vacia/
 ```
 
 ---
 
-## 🧠 Decisiones de diseño
+## 🧠 Diseño y decisiones técnicas
 
-- **Separación de responsabilidades**: cada archivo cumple una función específica (orquestación, lógica principal, reglas), lo que mejora legibilidad y mantenibilidad.
-- **Dry-run por defecto**: decisión de seguridad para evitar modificaciones accidentales en archivos reales.
-- **Diseño modular**: facilita testeo y extensión futura sin reescribir el núcleo del programa.
+- **CLI explícito y predecible**: el programa se ejecuta como módulo (`python -m app.main`), evitando dependencias del directorio actual.
+- **Separación de responsabilidades**: cada archivo cumple una función específica (orquestación, lógica principal, reglas).
+- **Dry-run por defecto**: decisión de seguridad para evitar modificaciones accidentales.
+- **Diseño modular**: facilita mantenimiento y extensión futura.
 
 ---
 
-## 🧠 Diseño y responsabilidades
-
-El proyecto está dividido por responsabilidades claras:
+## 📁 Responsabilidades por módulo
 
 - **main.py**  
-  Punto de entrada. Orquesta la ejecución y define parámetros (carpeta, prefijo, dry-run).
+  Punto de entrada del CLI. Define y parsea argumentos (`--path`, `--prefix`, `--execute`) y orquesta la ejecución.
 
 - **renamer.py**  
-  Lógica principal: recorre archivos, construye nuevos nombres y ejecuta (o simula) el renombrado.
+  Lógica principal: recorre archivos, aplica reglas, gestiona numeración y ejecuta (o simula) el renombrado.
 
 - **rules.py**  
   Contiene únicamente las reglas de normalización de nombres. No interactúa con el sistema de archivos.
-
-Este diseño facilita mantenimiento, testeo y extensión futura.
 
 ---
 
 ## ▶️ Uso
 
-Desde la raíz del proyecto:
+Desde la **raíz del proyecto**:
 
 ```bash
-python app/main.py
+python -m app.main --path examples/test_files
 ```
 
 Por defecto el programa corre en **modo dry-run**, mostrando qué cambios se realizarían sin modificar los archivos.
@@ -71,19 +71,59 @@ Por defecto el programa corre en **modo dry-run**, mostrando qué cambios se rea
 Ejemplo de salida:
 
 ```
-control-bucles Python.txt → doc_control_bucles_python_001.txt
-Precedencia-Python.txt   → doc_precedencia_python_002.txt
+[DRY-RUN] archivo.txt → file_archivo_001.txt
+```
+
+### Ejecución real
+
+Para aplicar los cambios:
+
+```bash
+python -m app.main --path examples/test_files --execute
+```
+
+### Carpeta vacía
+
+Si la carpeta indicada no contiene archivos (por ejemplo `examples/test_vacia`), el programa detecta automáticamente la situación, informa al usuario y no realiza ninguna acción.
+
+```bash
+python -m app.main --path examples/test_vacia
+```
+
+Salida esperada:
+
+```
+[INFO] No hay archivos para renombrar en: examples/test_vacia
+```
+
+### Archivos ya renombrados
+
+Si el programa encuentra archivos que **ya cumplen con el formato de renombrado esperado** (por ejemplo `file_control_bucles_python_002.txt`), los detecta automáticamente y los omite para evitar renombrados duplicados o inconsistentes.
+
+```bash
+python -m app.main --path examples/test_files
+```
+
+Salida esperada:
+
+```
+[SKIP] Archivo ya renombrado: file_control_bucles_python_002.txt
+```bash
+python -m app.main --path examples/test_vacia
+```
+
+Salida esperada:
+
+```
+[INFO] No hay archivos para renombrar en: examples/test_vacia
 ```
 
 ---
 
 ## 🔐 Modo seguro (dry-run)
 
-El proyecto prioriza la seguridad:
-- No se renombran archivos accidentalmente
-- El usuario puede revisar la salida antes de ejecutar cambios reales
-
-La ejecución real se habilita explícitamente mediante un flag interno (`dry_run=False`).
+- El programa **no modifica archivos por defecto**.
+- La ejecución real requiere confirmación explícita mediante `--execute`.
 
 ---
 
@@ -96,24 +136,19 @@ La ejecución real se habilita explícitamente mediante un flag interno (`dry_ru
 
 ## 🚧 Futuras mejoras
 
-Este proyecto está intencionalmente limitado a un alcance simple.
-En versiones futuras podría incorporar:
-
-- Interfaz de línea de comandos (CLI) con argumentos (`--execute`, `--prefix`, `--path`)
-- Reglas configurables por archivo (JSON / YAML)
+- Argumentos adicionales de CLI (ej. índice inicial de numeración)
+- Procesamiento recursivo de subcarpetas
+- Configuración externa de reglas (JSON / YAML)
 - Modo undo (rollback)
 - Publicación como paquete pip
-- Interfaz gráfica simple
-
-Estas mejoras no se incluyen en esta versión para mantener claridad y foco.
 
 ---
 
 ## 🧩 Estado del proyecto
 
-✔ Versión estable – funcional  
-✔ Proyecto cerrado para portfolio  
-✔ Enfoque en claridad, seguridad y buenas prácticas
+✔ Versión 2 – CLI funcional y documentado  
+✔ Diseño modular y seguro  
+✔ Proyecto preparado para portfolio
 
 ---
 
@@ -123,6 +158,5 @@ Proyecto desarrollado como parte de un proceso de formación y construcción de 
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la licencia MIT.
-Ver el archivo LICENSE para más información.
+Este proyecto está licenciado bajo la licencia MIT. Ver el archivo `LICENSE` para más información.
 

@@ -1,0 +1,43 @@
+Control de bucles
+Python proporciona algunas instrucciones especiales para controlar el flujo de ejecuciÃ³n dentro de los bucles:
+
+Break
+La instrucciÃ³n break se utiliza para salir prematuramente de un bucle, independientemente de la condiciÃ³n. Cuando se encuentra un break, el bucle se detiene y el flujo de ejecuciÃ³n continÃºa con la siguiente instrucciÃ³n fuera del bucle.      
+
+contador = 0
+
+
+while True:
+
+    print(contador)
+    contador += 1
+
+
+    if contador == 5:
+        break
+En este ejemplo, el bucle while se ejecuta indefinidamente debido a la condiciÃ³n True. Sin embargo, dentro del bucle se utiliza una estructura condicional if para verificar si contador es igual a 5. Cuando se cumple esta condiciÃ³n, se ejecuta la instrucciÃ³n break, lo que hace que el bucle se detenga y el flujo de ejecuciÃ³n continÃºe con la siguiente instrucciÃ³n fuera del bucle.
+
+
+
+Continue
+La instrucciÃ³n continue se utiliza para saltar el resto del bloque de cÃ³digo dentro de un bucle y pasar a la siguiente iteraciÃ³n.
+
+Ejemplo:
+
+for i in range(10):
+
+    if i % 2 == 0:
+        continue
+    print(i)
+En este ejemplo, el bucle for itera sobre los nÃºmeros del 0 al 9 utilizando la funciÃ³n range(). Dentro del bucle, se verifica si el nÃºmero es divisible por 2 utilizando el operador de mÃ³dulo %. Si el nÃºmero es divisible por 2 (es decir, si es par), se ejecuta la instrucciÃ³n continue, lo que hace que se salte el resto del bloque de cÃ³digo y se pase a la siguiente iteraciÃ³n del bucle. Como resultado, solo se imprimirÃ¡n los nÃºmeros impares.
+
+
+
+Pass
+La instrucciÃ³n pass es una operaciÃ³n nula que no hace nada. Se utiliza como marcador de posiciÃ³n cuando se requiere una instrucciÃ³n sintÃ¡cticamente, pero no se desea realizar ninguna acciÃ³n.
+
+Ejemplo:
+
+for i in range(5):
+    pass
+En este ejemplo, el bucle for itera sobre los nÃºmeros del 0 al 4, pero no se realiza ninguna acciÃ³n dentro del bucle debido a la instrucciÃ³n pass. Esto puede ser Ãºtil cuando se estÃ¡ desarrollando un programa y se desea reservar un bloque de cÃ³digo para implementarlo mÃ¡s adelante.
