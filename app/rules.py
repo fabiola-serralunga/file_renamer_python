@@ -5,17 +5,16 @@ def build_new_name(original_name, index, prefix="file"):
     - espacios → _
     - guiones - → _
     """
+    # Separa nombre de archivo de extensión
     name, ext = original_name.rsplit(".", 1)
-    " Separa nombre de archivo de extension "
 
+    # Normaliza nombre: minúsculas y reemplaza espacios/guiones por _
     name = name.lower()
     name = name.replace(" ", "_")
     name = name.replace("-", "_")
-    " Normaliza nombre "
 
+    # Normaliza extensión a minúsculas
     ext = ext.lower()
-    " Normaliza extension "
 
+    # Devuelve el nombre formateado con padding de 3 dígitos
     return f"{prefix}_{name}_{index:03d}.{ext}"
-    " Devuelve el nombre del archivo con formatted strings literal "
-    

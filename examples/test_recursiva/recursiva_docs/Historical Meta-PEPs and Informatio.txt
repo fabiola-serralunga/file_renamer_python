@@ -1,0 +1,40 @@
+Historical Meta-PEPs and Informational PEPs
+PEP	Title	Authors	
+PS	5	Guidelines for Language Evolution	Paul Prescod	
+PS	6	Bug Fix Releases	Aahz, Anthony Baxter	
+IF	160	Python 1.6 Release Schedule	Fred L. Drake, Jr.	1.6
+IF	200	Python 2.0 Release Schedule	Jeremy Hylton	2.0
+IF	226	Python 2.1 Release Schedule	Jeremy Hylton	2.1
+IF	251	Python 2.2 Release Schedule	Barry Warsaw, Guido van Rossum	2.2
+IF	283	Python 2.3 Release Schedule	Guido van Rossum	2.3
+IF	320	Python 2.4 Release Schedule	Barry Warsaw, Raymond Hettinger, Anthony Baxter	2.4
+PF	347	Migrating the Python CVS to Subversion	Martin von Löwis	
+IF	356	Python 2.5 Release Schedule	Neal Norwitz, Guido van Rossum, Anthony Baxter	2.5
+PF	360	Externally Maintained Packages	Brett Cannon	
+IF	361	Python 2.6 and 3.0 Release Schedule	Neal Norwitz, Barry Warsaw	2.6, 3.0
+IF	373	Python 2.7 Release Schedule	Benjamin Peterson	2.7
+PF	374	Choosing a distributed VCS for the Python project	Brett Cannon, Stephen J. Turnbull, Alexandre Vassalotti, Barry Warsaw, Dirkjan Ochtman	
+IF	375	Python 3.1 Release Schedule	Benjamin Peterson	3.1
+PF	385	Migrating from Subversion to Mercurial	Dirkjan Ochtman, Antoine Pitrou, Georg Brandl	
+IF	392	Python 3.2 Release Schedule	Georg Brandl	3.2
+IF	398	Python 3.3 Release Schedule	Georg Brandl	3.3
+IF	404	Python 2.8 Un-release Schedule	Barry Warsaw	2.8
+IF	429	Python 3.4 Release Schedule	Larry Hastings	3.4
+PS	438	Transitioning to release-file hosting on PyPI	Holger Krekel, Carl Meyer	
+PF	449	Removal of the PyPI Mirror Auto Discovery and Naming Scheme	Donald Stufft	
+PF	464	Removal of the PyPI Mirror Authenticity API	Donald Stufft	
+PF	470	Removing External Hosting Support on PyPI	Donald Stufft	
+IF	478	Python 3.5 Release Schedule	Larry Hastings	3.5
+IF	494	Python 3.6 Release Schedule	Ned Deily	3.6
+PF	512	Migrating from hg.python.org to GitHub	Brett Cannon	
+IF	537	Python 3.7 Release Schedule	Ned Deily	3.7
+PF	541	Package Index Name Retention	Łukasz Langa	
+IF	569	Python 3.8 Release Schedule	Łukasz Langa	3.8
+PF	581	Using GitHub Issues for CPython	Mariatta	
+IF	596	Python 3.9 Release Schedule	Łukasz Langa	3.9
+PF	3000	Python 3000	Guido van Rossum	
+PF	3002	Procedure for Backwards-Incompatible Changes	Steven Bethard	
+PF	3003	Python Language Moratorium	Brett Cannon, Jesse Noller, Guido van Rossum	
+PF	3099	Things that will Not Change in Python 3000	Georg Brandl	
+PF	3100	Miscellaneous Python 3.0 Plans	Brett Cannon	
+PF	8001	Python Governance Voting Process	Brett Cannon, Christian Heimes, Donald Stufft, Eric Snow, Gregory P. Smith, Łukasz Langa, Mariatta, Nathaniel J. Smith, Pablo Galindo Salgado, Raymond Hettinger, Tal Einat, Tim Peters, Zachary Ware
