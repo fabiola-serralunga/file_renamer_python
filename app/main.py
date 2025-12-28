@@ -21,6 +21,13 @@ def main():
     )
 
     parser.add_argument(
+        "--start-index",
+        type=int,
+        default=1,
+        help="Número inicial para la numeración"
+    )
+    
+    parser.add_argument(
         "--execute",
         action="store_true",
         help="Ejecuta el renombrado real (sin este flag es dry-run)"
@@ -41,7 +48,8 @@ def main():
     rename_files(
         folder_path=str(folder_path),
         prefix=args.prefix,
-        dry_run=not args.execute
+        dry_run=not args.execute, 
+        start_index=args.start_index
     )
 
 if __name__ == "__main__":

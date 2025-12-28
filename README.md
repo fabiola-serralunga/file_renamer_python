@@ -20,18 +20,18 @@ Renombrar archivos dentro de una carpeta:
 
 ```
 file_renamer_python/
-├── README.md
-├── .gitignore
-├── LICENSE
-├── requirements.txt
 ├── app/
 │   ├── __init__.py
 │   ├── main.py
 │   ├── renamer.py
 │   └── rules.py
-└── examples/
-    ├── test_files/
-    └── test_vacia/
+├── examples/
+│   ├── test_files/
+│   └── test_vacia/
+├── .gitignore
+├── LICENSE
+├── README.md
+└── requirements.txt
 ```
 
 ---
@@ -81,6 +81,18 @@ Para aplicar los cambios:
 ```bash
 python -m app.main --path examples/test_files --execute
 ```
+### Numeración desde índice específico
+python -m app.main --path examples/test_files --start-index 10
+
+--start-index permite iniciar la numeración desde cualquier valor. Por defecto empieza en 1.
+
+Ejemplo de salida con --start-index 10
+
+```
+[DRY-RUN] control-bucles Python.txt → file_control_bucles_python_010.txt
+[DRY-RUN] Archivo previamente normalizado: file_control_bucles_python_002.txt → file_file_control_bucles_python_002_011.txt
+[DRY-RUN] Precedencia-Python.txt → file_precedencia_python_012.txt
+```
 
 ### Carpeta vacía
 
@@ -96,27 +108,15 @@ Salida esperada:
 [INFO] No hay archivos para renombrar en: examples/test_vacia
 ```
 
-### Archivos ya renombrados
+### Archivos previamente formateados
 
-Si el programa encuentra archivos que **ya cumplen con el formato de renombrado esperado** (por ejemplo `file_control_bucles_python_002.txt`), los detecta automáticamente y los omite para evitar renombrados duplicados o inconsistentes.
+Ahora todos los archivos se normalizan, incluso si ya tienen un formato similar. Dry-run muestra un mensaje informativo:
 
-```bash
-python -m app.main --path examples/test_files
-```
+[DRY-RUN] Archivo previamente normalizado: file_control_bucles_python_002.txt → file_file_control_bucles_python_002_002.txt
 
-Salida esperada:
+[SKIP] fue eliminado; todos los archivos se procesan.
 
-```
-[SKIP] Archivo ya renombrado: file_control_bucles_python_002.txt
-```bash
-python -m app.main --path examples/test_vacia
-```
-
-Salida esperada:
-
-```
-[INFO] No hay archivos para renombrar en: examples/test_vacia
-```
+La numeración es continua y coherente con --start-index.
 
 ---
 
@@ -136,7 +136,6 @@ Salida esperada:
 
 ## 🚧 Futuras mejoras
 
-- Argumentos adicionales de CLI (ej. índice inicial de numeración)
 - Procesamiento recursivo de subcarpetas
 - Configuración externa de reglas (JSON / YAML)
 - Modo undo (rollback)
@@ -146,7 +145,7 @@ Salida esperada:
 
 ## 🧩 Estado del proyecto
 
-✔ Versión 2 – CLI funcional y documentado  
+✔ Versión 2.0.1 – CLI funcional y documentado  
 ✔ Diseño modular y seguro  
 ✔ Proyecto preparado para portfolio
 
