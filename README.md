@@ -157,7 +157,7 @@ Salida:
 ```
 [INFO] 3 carpeta(s) vacía(s) encontrada(s):
   • ./
-  • test_recursiva\recursiva_docs\otros_docs/
+  • test_recursiva/recursiva_docs/otros_docs/
   • test_vacia/
 ```
 ---
@@ -173,8 +173,8 @@ python -m app.main --path examples --recursive --global-index
 Salida:
 
 ```
-[DRY-RUN] test_files\Precedencia-Python.txt → file_precedencia_python_003.txt
-[DRY-RUN] test_recursiva\recursiva raiz.txt → file_recursiva_raiz_004.txt
+[DRY-RUN] test_files/Precedencia-Python.txt → file_precedencia_python_003.txt
+[DRY-RUN] test_recursiva/recursiva raiz.txt → file_recursiva_raiz_004.txt
 ```
 
 > `--global-index` solo es válido junto con `--recursive`.
@@ -216,7 +216,7 @@ examples
 Los archivos que ya cumplen el patrón esperado **no se omiten**. Se vuelven a procesar para garantizar coherencia global:
 
 ```
- [DRY-RUN] test_files\file_control_bucles_python_002.txt (normalizado) → file_file_control_bucles_python_002_002.txt
+ [DRY-RUN] test_files/file_control_bucles_python_002.txt (normalizado) → file_file_control_bucles_python_002_002.txt
 ```
 
 Esto evita estados híbridos dentro de una misma carpeta o árbol.
@@ -228,7 +228,7 @@ Esto evita estados híbridos dentro de una misma carpeta o árbol.
 Archivos con múltiples puntos conservan la extensión completa:
 
 ```
-[DRY-RUN] test_recursiva\recursiva_imagen\PEP8.PYTHON.jpg → file_pep8.python_007.jpg
+[DRY-RUN] test_recursiva/recursiva_imagen/PEP8.PYTHON.jpg → file_pep8.python_007.jpg
 ```
 
 ---
@@ -236,7 +236,7 @@ Archivos con múltiples puntos conservan la extensión completa:
 ### Edge case: mezcla de mayúsculas, espacios y guiones
 
 ```
-[DRY-RUN] test_recursiva\recursiva_docs\Historical Meta-PEPs and Informatio.txt → file_historical_meta_peps_and_informatio_005.txt
+[DRY-RUN] test_recursiva/recursiva_docs/Historical Meta-PEPs and Informatio.txt → file_historical_meta_peps_and_informatio_005.txt
 ```
 
 ---
@@ -253,7 +253,7 @@ Ejemplo:
 ```
 [INFO] 3 carpeta(s) vacía(s) encontrada(s):
   • ./
-  • test_recursiva\recursiva_docs\otros_docs/
+  • test_recursiva/recursiva_docs/otros_docs/
   • test_vacia/
 ```
 
