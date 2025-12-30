@@ -6,6 +6,28 @@ A partir de la versión **3.0.0**, el proyecto incorpora **procesamiento recursi
 
 ---
 
+## Tabla de Contenidos
+
+- [🎯 Objetivo](#🎯-objetivo)
+- [🧱 Estructura del proyecto](#🧱-estructura-del-proyecto)
+- [🧠 Diseño y decisiones técnicas](#🧠-diseño-y-decisiones-técnicas)
+- [📁 Responsabilidades por módulo](#📁-responsabilidades-por-módulo)
+- [▶️ Uso](#▶️-uso)
+- [🚀 Ejecución real](#🚀-ejecución-real)
+- [🔢 Control de numeración](#🔢-control-de-numeración)
+- [🌳 Procesamiento recursivo](#🌳-procesamiento-recursivo)
+- [🧪 Ejemplos complejos y edge cases](#🧪-ejemplos-complejos-y-edge-cases)
+- [📂 Carpetas vacías](#📂-carpetas-vacías)
+- [🔐 Modo seguro (dry-run)](#🔐-modo-seguro-(dry-run))
+- [📌 Requisitos](#📌-requisitos)
+- [🧩 Estado del proyecto](#🧩-estado-del-proyecto)
+- [📊 Evolución y Métricas](#📊-evolución-y-métricas)
+- [🚧 Posibles mejoras futuras](#🚧-posibles-mejoras-futuras)
+- [👤 Autor](#👤-autor)
+- [📄 Licencia](#📄-licencia)
+
+---
+
 ## 🎯 Objetivo
 
 Renombrar archivos de forma consistente:
@@ -318,15 +340,6 @@ Resultado esperado:
 ✔ Diseño modular, extensible y seguro
 
 ---
-
-## 🚧 Posibles mejoras futuras
-
-- Configuración externa de reglas (JSON / YAML)
-- Modo undo / rollback
-- Filtros por extensión
-- Publicación como paquete pip
-
----
 ## 📊 Evolución y Métricas
 
 Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a través de sus releases. La evolución técnica es transparente y cuantificable.
@@ -370,6 +383,14 @@ python -m app.main --help
 git checkout main
 
 ---
+## 🚧 Posibles mejoras futuras
+
+- Configuración externa de reglas (JSON / YAML)
+- Modo undo / rollback
+- Filtros por extensión
+- Publicación como paquete pip
+
+---
 
 ## 👤 Autor
 
@@ -380,4 +401,3 @@ Proyecto desarrollado como parte de un proceso de formación y construcción de 
 ## 📄 Licencia
 
 Este proyecto está licenciado bajo la **MIT License**. Ver el archivo `LICENSE` para más información.
-

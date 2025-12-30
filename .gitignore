@@ -1,8 +1,6 @@
 __pycache__/
 *.pyc
 .env
-.venv/
-csv_to_pretty_md.sh
 
 # Carpeta Stats
 stats/*.csv 
@@ -12,4 +10,4 @@ stats/*.jpg
 !stats/*.sh
 !stats/*.py
 stats/csv_to_pretty_md.sh
-
+stats/update_readme_with_toc.sh
