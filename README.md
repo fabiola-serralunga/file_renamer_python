@@ -333,6 +333,14 @@ Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a 
 
 ### 📈 Métricas por versión 
 =================
+| Versión | Líneas | Archivos | Args_CLI | Ejemplos | Fecha |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| v1.0.0 | 050 | 4 | 0 | 2 | 2025-12-18 |
+| v2.0.0 | 106 | 4 | 3 | 2 | 2025-12-27 |
+| v2.0.1 | 324 | 4 | 6 | 3 | 2025-12-28 |
+| v3.0.0 | 324 | 4 | 6 | 3 | 2025-12-28 |
+
+*Actualizado al 30/12/2025*
 
 ```bash
 # Nota: Ejecuta `./stats/full_stats.sh` para métricas exactas.*
