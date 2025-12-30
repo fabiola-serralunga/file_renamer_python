@@ -2,6 +2,7 @@ __pycache__/
 *.pyc
 .env
 .venv/
+csv_to_pretty_md.sh
 
 # Carpeta Stats
 stats/*.csv 
@@ -10,3 +11,5 @@ stats/*.png
 stats/*.jpg
 !stats/*.sh
 !stats/*.py
+stats/csv_to_pretty_md.sh
+
