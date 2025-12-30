@@ -326,6 +326,51 @@ Resultado esperado:
 - Publicación como paquete pip
 
 ---
+## 📊 Evolución y Métricas
+
+Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a través de sus releases. La evolución técnica es transparente y cuantificable.
+
+### 📈 Estadísticas de Crecimiento
+
+📈 TABLA RESUMEN:
+=================
+Versión  Líneas  Archivos    Args_CLI  Ejemplos  Fecha
+v1.0.0   50      4           0
+0        2       2025-12-18
+v2.0.0   106     4           3         2         2025-12-27
+v2.0.1   324     4           6         3         2025-12-28
+v3.0.0   324     4           6         3         2025-12-28
+
+*Reporte al 30/12/2025*
+
+```bash
+# Generar reporte de métricas actuales
+./stats/full_stats.sh
+```
+
+### 🕰️ Journey Through Versions
+Experimenta la evolución en primera persona:
+
+# 1. Versión estable inicial con renombrador de archivos de prueba (v1.0.0)
+git checkout v1.0.0
+python -m app.main --help  
+
+# 2. Versión CLI con casos extremos documentados (v2.0.0)
+git checkout v2.0.0  
+python -m app.main --help  
+
+# 3. Versión CLI con opción -start-index para numeración personalizada y función SKIP eliminada (v2.0.1)
+git checkout v2.0.1  
+python -m app.main --help
+
+# 4. Versión actual con procesamiento recursivo (v3.0.0)
+git checkout main
+python -m app.main --help  
+
+# 5. Siempre volver a main cuando termines
+git checkout main
+
+---
 
 ## 👤 Autor
 

@@ -2,3 +2,11 @@ __pycache__/
 *.pyc
 .env
 .venv/
+
+# Carpeta Stats
+stats/*.csv 
+stats/*.json
+stats/*.png
+stats/*.jpg
+!stats/*.sh
+!stats/*.py
