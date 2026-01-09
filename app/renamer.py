@@ -3,19 +3,25 @@ import re
 from pathlib import Path
 from app.rules import build_new_name
 
-
-def rename_files(folder_path, prefix="file", dry_run=False, start_index=1, recursive=False, global_index=False):
+def rename_files(folder_path, prefix="file", dry_run=True, 
+                 start_index=1, recursive=False, global_index=False,
+                 rules_config=None):  
     """
-    Renombra archivos en una carpeta, opcionalmente de forma recursiva.
+    Renombra archivos en una carpeta.
     
     Args:
-        folder_path: Ruta de la carpeta principal
+        folder_path: Ruta de la carpeta
         prefix: Prefijo para los nombres
         dry_run: Si True, solo muestra lo que haría
         start_index: Número inicial para la numeración
         recursive: Si True, procesa subcarpetas
-        global_index: Si True, usa numeración continua global (solo con recursive)
+        global_index: Si True, usa numeración global (solo con recursive)
+        rules_config: Configuración de reglas (opcional, para futuras versiones)
     """
+
+    # Inicializar rules_config si es None
+    if rules_config is None:
+        rules_config = {}
     
     # Convertir a Path para manejo más fácil
     root_path = Path(folder_path).resolve()
@@ -109,7 +115,6 @@ def _process_single_folder(folder_path, prefix, dry_run, start_index):
     files = _get_files_in_folder(folder_path)
     
     if not files:
-        # Este mensaje ya se mostró en rename_files, pero por seguridad
         return
 
     # Patrón para detectar archivos que ya tenían formato
@@ -121,22 +126,29 @@ def _process_single_folder(folder_path, prefix, dry_run, start_index):
     for filename in files:
         new_name = build_new_name(filename, current_index, prefix)
 
-        # Si ya cumple el patrón, mostramos mensaje especial pero lo seguimos renombrando
-        if pattern.match(filename):
-            msg = f"[DRY-RUN] Archivo previamente normalizado: {filename} → {new_name}"
-        else:
-            msg = f"[DRY-RUN] {filename} → {new_name}"
-
-        if dry_run:
-            print(f"  {msg}")
+        # CASO 1: Dry-run + ya normalizado
+        if dry_run and pattern.match(filename):
+            print(f"  [DRY-RUN] Archivo previamente normalizado: {filename} → {new_name}")
+        
+        # CASO 2: Dry-run + no normalizado
+        elif dry_run:
+            print(f"  [DRY-RUN] {filename} → {new_name}")
+        
+        # CASO 3: Ejecución real + ya normalizado
+        elif pattern.match(filename):
+            old_path = folder_path / filename
+            new_path = folder_path / new_name
+            old_path.rename(new_path)
+            print(f"  ✅ [RENOMBRADO] Archivo previamente normalizado: {filename} → {new_name}")
+        
+        # CASO 4: Ejecución real + no normalizado
         else:
             old_path = folder_path / filename
             new_path = folder_path / new_name
             old_path.rename(new_path)
-            print(f"  {msg}")
+            print(f"  ✅ [RENOMBRADO] {filename} → {new_name}")
 
         current_index += 1
-
 
 def _process_files_global(all_files, prefix, dry_run, start_index, root_path):
     """Procesa archivos con numeración global continua."""
@@ -151,77 +163,54 @@ def _process_files_global(all_files, prefix, dry_run, start_index, root_path):
         
         new_name = build_new_name(filename, current_index, prefix)
         
-        # Mensaje con ruta relativa para mejor contexto
-        if pattern.match(filename):
-            msg = f"[DRY-RUN] {relative_path} (normalizado) → {new_name}"
-        else:
-            msg = f"[DRY-RUN] {relative_path} → {new_name}"
+        # Determinar si ya estaba normalizado
+        already_normalized = pattern.match(filename)
         
         if dry_run:
-            print(f"  {msg}")
+            if already_normalized:
+                print(f"  [DRY-RUN] {relative_path} (normalizado) → {new_name}")
+            else:
+                print(f"  [DRY-RUN] {relative_path} → {new_name}")
         else:
             new_path = parent_dir / new_name
             file_path.rename(new_path)
-            print(f"  {msg}")
+            
+            if already_normalized:
+                print(f"  ✅ [RENOMBRADO] {relative_path} (normalizado) → {new_name}")
+            else:
+                print(f"  ✅ [RENOMBRADO] {relative_path} → {new_name}")
         
         current_index += 1
-
 
 def _process_files_by_folder(all_files, prefix, dry_run, start_index, root_path):
     """Procesa archivos reiniciando numeración en cada carpeta."""
     
     pattern = re.compile(rf"^{re.escape(prefix)}_.+_\d{{3}}\.[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*$")
     
-    # Agrupar archivos por carpeta
-    files_by_folder = {}
-    for file_path in all_files:
-        parent = str(file_path.parent)
-        if parent not in files_by_folder:
-            files_by_folder[parent] = []
-        files_by_folder[parent].append(file_path)
+    # ... (código de agrupación igual) ...
     
-    # Encontrar TODAS las carpetas en el árbol (no solo las con archivos)
-    all_folders_in_tree = set()
-    for item in root_path.rglob("*"):
-        if item.is_dir():
-            all_folders_in_tree.add(str(item))
-    
-    # También incluir la carpeta raíz
-    all_folders_in_tree.add(str(root_path))
-    
-    # Identificar carpetas vacías (carpetas sin archivos en files_by_folder)
-    folders_with_files = set(files_by_folder.keys())
-    empty_folders = all_folders_in_tree - folders_with_files
-    
-    # Procesar cada carpeta independientemente
-    for folder, file_list in files_by_folder.items():
-        folder_name = Path(folder).relative_to(root_path)
-        print(f"\n[PROCESANDO] Carpeta: {folder_name}/")
+    for file_path in file_list:
+        filename = file_path.name
+        new_name = build_new_name(filename, current_index, prefix)
         
-        # Esto no debería pasar, pero por seguridad
-        if not file_list:
-            print(f"  [INFO] Carpeta vacía - nada que procesar")
-            continue
+        # Determinar si ya estaba normalizado
+        already_normalized = pattern.match(filename)
         
-        current_index = start_index
-        
-        for file_path in file_list:
-            filename = file_path.name
-            new_name = build_new_name(filename, current_index, prefix)
-            
-            if pattern.match(filename):
-                msg = f"[DRY-RUN] {filename} (normalizado) → {new_name}"
+        if dry_run:
+            if already_normalized:
+                print(f"  [DRY-RUN] {filename} (normalizado) → {new_name}")
             else:
-                msg = f"[DRY-RUN] {filename} → {new_name}"
+                print(f"  [DRY-RUN] {filename} → {new_name}")
+        else:
+            new_path = file_path.parent / new_name
+            file_path.rename(new_path)
             
-            if dry_run:
-                print(f"  {msg}")
+            if already_normalized:
+                print(f"  ✅ [RENOMBRADO] {filename} (normalizado) → {new_name}")
             else:
-                new_path = file_path.parent / new_name
-                file_path.rename(new_path)
-                print(f"  {msg}")
-            
-            current_index += 1
+                print(f"  ✅ [RENOMBRADO] {filename} → {new_name}")
+        
+        current_index += 1
     
     # Mostrar resumen de carpetas vacías (solo en dry_run para no sobrecargar)
     if empty_folders and dry_run:

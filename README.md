@@ -11,7 +11,10 @@ A partir de la versión **3.0.0**, el proyecto incorpora **procesamiento recursi
 - [🎯 Objetivo](#-objetivo)
 - [🧱 Estructura del proyecto](#-estructura-del-proyecto)
 - [🧠 Diseño y decisiones técnicas](#-diseño-y-decisiones-técnicas)
-- [📁 Responsabilidades por módulo](#-responsabilidades-por-módulo)
+- [🆕Configuración externa (v4.0.0)]
+(#-configuración-externa- (v4.0.0))
+- [📁 Responsabilidades por módulo]
+(#-responsabilidades-por-módulo)
 - [▶️ Uso](#-uso)
 - [🚀 Ejecución real](#-ejecución-real)
 - [🔢 Control de numeración](#-control-de-numeración)
@@ -47,10 +50,19 @@ Renombrar archivos de forma consistente:
 file_renamer_python/
 ├── app/
 │   ├── __init__.py
-│   ├── main.py       # CLI y validación de argumentos
-│   ├── renamer.py    # Lógica de renombrado y recorrido de carpetas
-│   └── rules.py      # Reglas de normalización de nombres
+│   ├── config_loader.py # Carga de JSON / YAML
+│   ├── main.py          # CLI y validación de argumentos
+│   ├── renamer.py       # Lógica de renombrado y recorrido de carpetas
+│   └── rules.py         # Reglas de normalización de nombres
+├── config/
+│   ├── test_renamer.json
+│   └── test_renamer.yaml
 ├── examples/
+│   ├── test_docs_yaml/
+│   ├── test_images_json/
+│   │   ├── test_images_francia/
+│   │   ├── test_images_italia/  
+│   │   └── test_images_rusia/
 │   ├── test_files/
 │   ├── test_recursiva/
 │   │   ├── recursiva_docs/
@@ -61,7 +73,8 @@ file_renamer_python/
 ├── .gitignore
 ├── LICENSE
 ├── README.md
-└── requirements.txt
+├── requirements.txt
+└── stats
 ```
 
 ---
@@ -75,6 +88,65 @@ file_renamer_python/
 - **Orden determinista**: archivos ordenados para garantizar resultados reproducibles.
 
 ---
+
+## 🆕 Configuración externa (v4.0.0)
+
+A partir de la versión **4.0.0**, el proyecto incorpora **configuración externa mediante archivos JSON o YAML**, manteniendo compatibilidad total con el uso por CLI.
+
+Esta configuración permite definir de forma declarativa:
+
+- Ruta de trabajo (`path`)
+- Modo seguro (`dry_run`)
+- Reglas de renombrado (`rules`)
+
+El motor interno no distingue entre JSON o YAML: ambos formatos se cargan y normalizan como un diccionario Python antes de la ejecución.
+
+### Ejemplo de configuración mínima (JSON)
+
+```json
+{
+  "path": "./examples/test_images_json/test_images_rusia",
+  "dry_run": true,
+  "rules": {
+    "prefix": "rusia_2025",
+    "start_index": 1,
+    "padding": 3
+  }
+}
+```
+
+### Ejemplo equivalente (YAML)
+
+```yaml
+path: ./examples/test_docs_yaml/
+dry_run: true
+
+rules:
+  prefix: doc
+  start_index: 1
+  padding: 3
+```
+
+### Ejecución con archivo de configuración
+
+python -m app.main --config config/test_renamer.json
+
+ó 
+
+python -m app.main --config config/test_renamer.yaml
+
+### Precedencia de configuración
+
+Los valores definidos en el archivo de configuración son la fuente principal.
+
+Algunos argumentos CLI (--path, --execute) pueden sobrescribir valores del archivo.
+
+El comportamiento por defecto sigue siendo dry-run seguro.
+
+Esta incorporación sienta las bases para futuros flujos más complejos sin acoplar lógica de dominio al renombrador.
+
+---
+
 
 ## 📁 Responsabilidades por módulo
 
@@ -212,6 +284,15 @@ Estructura de ejemplo:
 
 ```
 examples
+    ├───test_docs_yaml
+    ├───test_images_json
+    │   ├──test_images_francia    
+    │   ├──test_images_italia    
+    │   └──test_images_rusia
+    │         image_001.png    
+    │         image_002.png    
+    │         image_003.jpg
+    │         [...gif, bmp]   
     ├───test_files
     │       control-bucles Python.txt
     │       file_control_bucles_python_002.txt
@@ -334,10 +415,15 @@ Resultado esperado:
 
 ## 🧩 Estado del proyecto
 
-✔ Versión **3.0.0** – Procesamiento recursivo completo
-✔ CLI robusto y validado
-✔ Numeración configurable y determinista
-✔ Diseño modular, extensible y seguro
+## 🧩 Estado del proyecto
+
+✔ Versión **4.0.0** – Configuración externa JSON / YAML  
+✔ Compatibilidad total con uso por CLI  
+✔ Reglas declarativas de renombrado  
+✔ Procesamiento recursivo completo  
+✔ Dry-run seguro por defecto  
+✔ Diseño modular y extensible
+
 
 ---
 ## 📊 Evolución y Métricas
@@ -385,10 +471,13 @@ git checkout main
 ---
 ## 🚧 Posibles mejoras futuras
 
-- Configuración externa de reglas (JSON / YAML)
+## 🚧 Posibles mejoras futuras
+
+- Reglas avanzadas por tipo de archivo
+- Filtros por extensión y patrones
 - Modo undo / rollback
-- Filtros por extensión
 - Publicación como paquete pip
+- Interfaz gráfica simple
 
 ---
 
@@ -401,3 +490,4 @@ Proyecto desarrollado como parte de un proceso de formación y construcción de 
 ## 📄 Licencia
 
 Este proyecto está licenciado bajo la **MIT License**. Ver el archivo `LICENSE` para más información.
+

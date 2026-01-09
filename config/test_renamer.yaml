@@ -1,0 +1,7 @@
+path: ./examples/test_docs_yaml/
+dry_run: true
+
+rules:
+  prefix: doc
+  start_index: 1
+  padding: 3
