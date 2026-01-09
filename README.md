@@ -11,10 +11,8 @@ A partir de la versión **3.0.0**, el proyecto incorpora **procesamiento recursi
 - [🎯 Objetivo](#-objetivo)
 - [🧱 Estructura del proyecto](#-estructura-del-proyecto)
 - [🧠 Diseño y decisiones técnicas](#-diseño-y-decisiones-técnicas)
-- [🆕Configuración externa (v4.0.0)]
-(#-configuración-externa- (v4.0.0))
-- [📁 Responsabilidades por módulo]
-(#-responsabilidades-por-módulo)
+- [🆕 Configuración externa (v4.0.0)](#-configuraci%C3%B3n-externa-v400)
+- [📁 Responsabilidades por módulo](#-responsabilidades-por-m%C3%B3dulo)
 - [▶️ Uso](#-uso)
 - [🚀 Ejecución real](#-ejecución-real)
 - [🔢 Control de numeración](#-control-de-numeración)
@@ -438,7 +436,7 @@ Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a 
 | v2.0.0 | 106 | 4 | 3 | 2 | 2025-12-27 |
 | v2.0.1 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v3.0.0 | 324 | 4 | 6 | 3 | 2025-12-28 |
-
+| v4.0.0 | 533 | 5 | 6 | 6 | 2026-01-09 |
 *Actualizado al 30/12/2025*
 
 ```bash
@@ -462,14 +460,17 @@ git checkout v2.0.1
 python -m app.main --help
 
 #### 4. Versión actual con procesamiento recursivo (v3.0.0)
-git checkout main
+git checkout v3.0.0  
 python -m app.main --help  
 
-#### 5. Siempre volver a main cuando termines
+#### 5. – Versión actual con soporte para configuración externa en JSON y YAML (v4.0.0)
+git checkout main  
+python -m app.main --help  
+
+#### 6. Siempre volver a main cuando termines
 git checkout main
 
 ---
-## 🚧 Posibles mejoras futuras
 
 ## 🚧 Posibles mejoras futuras
 
