@@ -437,7 +437,7 @@ Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a 
 | v2.0.1 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v3.0.0 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v4.0.0 | 533 | 5 | 6 | 6 | 2026-01-09 |
-*Actualizado al 30/12/2025*
+*Actualizado al 09/01/2026*
 
 ```bash
 # Nota: Ejecuta `./stats/full_stats.sh` para métricas exactas.*
