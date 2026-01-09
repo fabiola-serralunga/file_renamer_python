@@ -413,8 +413,6 @@ Resultado esperado:
 
 ## 🧩 Estado del proyecto
 
-## 🧩 Estado del proyecto
-
 ✔ Versión **4.0.0** – Configuración externa JSON / YAML  
 ✔ Compatibilidad total con uso por CLI  
 ✔ Reglas declarativas de renombrado  
