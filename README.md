@@ -2,7 +2,9 @@
 
 Herramienta en Python para renombrar archivos de forma segura, controlada y predecible, orientada a automatización y buenas prácticas de backend.
 
-A partir de la versión **3.0.0**, el proyecto incorpora **procesamiento recursivo completo**, permitiendo renombrar archivos en árboles de directorios con distintos modos de numeración.
+A partir de la versión 3.0.0, el proyecto incorpora procesamiento recursivo completo para renombrar archivos en árboles de directorios.
+
+Desde la versión 4.0.0, admite configuración externa mediante archivos JSON y YAML, manteniendo compatibilidad total con el uso por línea de comandos.
 
 ---
 
