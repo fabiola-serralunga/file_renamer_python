@@ -1,9 +1,0 @@
-{
-  "path": "./examples/test_images_json/test_images_rusia",
-  "dry_run": true,
-  "rules": {
-    "prefix": "rusia_2025",
-    "start_index": 1,
-    "padding": 3
-  }
-}

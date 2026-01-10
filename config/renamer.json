@@ -1,0 +1,22 @@
+{
+  "path": "./examples/test_mixed",
+  "dry_run": true,
+  "rules": {
+    "default": {
+      "prefix": "file",
+      "start_index": 1,
+      "padding": 3
+    },
+    "by_type": {
+      "images": {
+        "extensions": [".jpg", ".jpeg", ".png"],
+        "prefix": "img",
+        "padding": 4
+      },
+      "documents": {
+        "extensions": [".pdf", ".docx", ".txt"],
+        "prefix": "doc"
+      }
+    }
+  }
+}

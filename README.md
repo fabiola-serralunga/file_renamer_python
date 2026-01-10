@@ -53,8 +53,10 @@ file_renamer_python/
 │   ├── renamer.py       # Lógica de renombrado y recorrido de carpetas
 │   └── rules.py         # Reglas de normalización de nombres
 ├── config/
-│   ├── test_renamer.json
-│   └── test_renamer.yaml
+│   ├── basic_v4.json
+│   ├── basic_v4.json
+│   ├── renamer.json
+│   └── renamer.yaml
 ├── examples/
 │   ├── test_docs_yaml/
 │   ├── test_images_json/
@@ -62,6 +64,7 @@ file_renamer_python/
 │   │   ├── test_images_italia/  
 │   │   └── test_images_rusia/
 │   ├── test_files/
+│   ├── test_mixed/
 │   ├── test_recursiva/
 │   │   ├── recursiva_docs/
 │   │   │   └── otros_docs/
@@ -295,6 +298,12 @@ examples
     │       control-bucles Python.txt
     │       file_control_bucles_python_002.txt
     │       Precedencia-Python.txt
+    │
+    ├───test_mixed
+    │   │   borrador Apartado cortisol.txt
+    │   │   image_001.gif
+    │   │   image-002.png
+    │   │   [...]
     │
     ├───test_recursiva
     │   │   recursiva raiz.txt
