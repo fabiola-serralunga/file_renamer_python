@@ -204,7 +204,7 @@ def _process_files_by_folder(all_files, prefix, dry_run, start_index, root_path,
     files_by_folder = defaultdict(list)
     from collections import defaultdict
 
-def _process_files_by_folder(all_files, prefix, dry_run, start_index, root_path):
+def _process_files_by_folder(all_files, prefix, dry_run, start_index, root_path, rules_config):
     """
     Procesa archivos recursivamente, reiniciando el índice
     para cada carpeta que contiene archivos.
