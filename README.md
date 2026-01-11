@@ -522,7 +522,7 @@ Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a 
 | v2.0.1 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v3.0.0 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v4.0.0 | 533 | 5 | 6 | 6 | 2026-01-09 |
-| v5.0.0 |     |   |   |   | 2026-01-10 |
+| v5.0.0 | 598 | 5 | 6 | 7 | 2026-01-10 |
 *Actualizado al 10/01/2026*
 
 ```bash
