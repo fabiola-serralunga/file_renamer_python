@@ -1,10 +1,6 @@
-# File Renamer Python
+# File Renamer Python - v5.0.0
 
-Herramienta en Python para renombrar archivos de forma segura, controlada y predecible, orientada a automatización y buenas prácticas de backend.
-
-A partir de la versión 3.0.0, el proyecto incorpora procesamiento recursivo completo para renombrar archivos en árboles de directorios.
-
-Desde la versión 4.0.0, admite configuración externa mediante archivos JSON y YAML, manteniendo compatibilidad total con el uso por línea de comandos.
+Herramienta en Python para renombrar archivos de forma segura, controlada y predecible, con soporte para configuración declarativa (JSON/YAML) y reglas avanzadas por tipo de archivo.
 
 ---
 
@@ -13,7 +9,7 @@ Desde la versión 4.0.0, admite configuración externa mediante archivos JSON y 
 - [🎯 Objetivo](#-objetivo)
 - [🧱 Estructura del proyecto](#-estructura-del-proyecto)
 - [🧠 Diseño y decisiones técnicas](#-diseño-y-decisiones-técnicas)
-- [🆕 Configuración externa (v4.0.0)](#-configuraci%C3%B3n-externa-v400)
+- [🆕 Configuración externa (v5.0.0)](#-configuraci%C3%B3n-externa-v500)
 - [📁 Responsabilidades por módulo](#-responsabilidades-por-m%C3%B3dulo)
 - [▶️ Uso](#-uso)
 - [🚀 Ejecución real](#-ejecución-real)
@@ -33,7 +29,9 @@ Desde la versión 4.0.0, admite configuración externa mediante archivos JSON y 
 
 ## 🎯 Objetivo
 
-Renombrar archivos de forma consistente:
+Proporcionar una herramienta en Python para renombrar archivos de forma segura, predecible y reproducible, orientada a automatización y buenas prácticas de backend.
+
+A partir de la versión 5.0.0, el proyecto adopta un enfoque basado en reglas, permitiendo definir comportamientos de renombrado declarativos mediante configuración externa (JSON/YAML), sin acoplar la lógica de negocio a la interfaz de uso (CLI o configuración).
 
 - Normalización de nombres (minúsculas, snake_case básico)
 - Prefijo configurable
@@ -84,6 +82,8 @@ file_renamer_python/
 
 ## 🧠 Diseño y decisiones técnicas
 
+- **Separación entre resolución de reglas y ejecución de renombrado:**
+A partir de la versión 5.0.0, el sistema separa explícitamente la resolución de reglas (qué prefijo o parámetros aplicar a cada archivo) de la ejecución del renombrado. Esta decisión permite extender el motor sin modificar la lógica central de renombrado, facilitando la incorporación de nuevas reglas (por tipo de archivo, por carpeta o por metadatos) y manteniendo compatibilidad con configuraciones simples y el uso por CLI.
 - **CLI explícito y predecible**: ejecución como módulo (`python -m app.main`).
 - **Separación de responsabilidades**: CLI, lógica de recorrido y reglas desacopladas.
 - **Dry-run por defecto**: evita modificaciones accidentales.
@@ -92,17 +92,92 @@ file_renamer_python/
 
 ---
 
-## 🆕 Configuración externa (v4.0.0)
+## 🆕 Configuración externa (v5.0.0)
 
-A partir de la versión **4.0.0**, el proyecto incorpora **configuración externa mediante archivos JSON o YAML**, manteniendo compatibilidad total con el uso por CLI.
+A partir de la versión 4.0.0, el proyecto incorpora configuración externa mediante archivos JSON o YAML, manteniendo compatibilidad total con el uso por CLI.
 
-Esta configuración permite definir de forma declarativa:
+Desde la versión 5.0.0, esta configuración evoluciona hacia un enfoque basado en reglas, permitiendo definir comportamientos de renombrado específicos según el tipo de archivo.
 
-- Ruta de trabajo (`path`)
-- Modo seguro (`dry_run`)
-- Reglas de renombrado (`rules`)
+La configuración permite definir de forma declarativa:
 
-El motor interno no distingue entre JSON o YAML: ambos formatos se cargan y normalizan como un diccionario Python antes de la ejecución.
+- Ruta de trabajo (path)
+
+- Modo seguro de ejecución (dry_run)
+
+- Modo recursivo y estrategia de numeración (recursive, global_index)
+
+- Reglas de renombrado (rules, con reglas por defecto y por tipo de archivo)
+
+El motor interno no distingue entre JSON o YAML: ambos formatos se cargan, validan y normalizan como un diccionario Python antes de la ejecución.
+
+### Configuración JSON (v5.0.0, actual)
+
+```json 
+{
+  "path": "./examples/test_mixed",
+  "dry_run": true,
+  "recursive": false,
+  "global_index": false,
+  
+  "rules": {
+    "default": {
+      "prefix": "file",
+      "start_index": 1,
+      "padding": 3
+    },
+    "by_type": {
+      "images": {
+        "extensions": [".jpg", ".jpeg", ".png"],
+        "prefix": "img",
+        "padding": 4
+      },
+      "documents": {
+        "extensions": [".pdf", ".docx", ".txt"],
+        "prefix": "doc"
+      }
+    }
+  }
+}
+
+```
+
+### Configuración YAML (v5.0.0, actual)
+
+```yaml  
+path: ./examples/test_mixed
+dry_run: true
+recursive: false,
+global_index: false,
+
+rules:
+  default:
+    prefix: file
+    start_index: 1
+    padding: 3
+
+  by_type:
+    images:
+      extensions: [".jpg", ".jpeg", ".png"]
+      prefix: img
+      padding: 4
+
+    documents:
+      extensions: [".pdf", ".docx", ".txt"]
+      prefix: doc
+
+    videos:
+      extensions: [".mp4", ".mov"]
+      prefix: video
+```
+
+### Ejecución con archivo de configuración
+
+python -m app.main --config config/renamer.json
+
+ó 
+
+python -m app.main --config config/renamer.yaml
+
 
 ### Ejemplo de configuración mínima (JSON)
 
@@ -118,7 +193,7 @@ El motor interno no distingue entre JSON o YAML: ambos formatos se cargan y norm
 }
 ```
 
-### Ejemplo equivalente (YAML)
+### Ejemplo de configuración mínima (YAML)
 
 ```yaml
 path: ./examples/test_docs_yaml/
@@ -130,13 +205,13 @@ rules:
   padding: 3
 ```
 
-### Ejecución con archivo de configuración
+### Ejecución con archivo de configuración mínima
 
-python -m app.main --config config/test_renamer.json
+python -m app.main --config config/basic_v4.json
 
 ó 
 
-python -m app.main --config config/test_renamer.yaml
+python -m app.main --config config/basic_v4.yaml
 
 ### Precedencia de configuración
 
@@ -158,7 +233,8 @@ Esta incorporación sienta las bases para futuros flujos más complejos sin acop
 - Punto de entrada del CLI.
 - Define y valida argumentos.
 - Controla combinaciones inválidas (por ejemplo `--global-index` sin `--recursive`).
-- Orquesta la ejecución.
+- Carga, normaliza y valida la configuración (CLI / JSON / YAML).
+- Orquesta la ejecución del motor de renombrado.
 
 ### `renamer.py`
 
@@ -171,9 +247,9 @@ Esta incorporación sienta las bases para futuros flujos más complejos sin acop
 
 ### `rules.py`
 
-- Contiene exclusivamente reglas de normalización de nombres.
+- Contiene la lógica de normalización y construcción de nombres de archivo.
+- Resuelve las reglas de renombrado en función de la configuración declarativa (por ejemplo, reglas por tipo de archivo).
 - No interactúa con el sistema de archivos.
-
 ---
 
 ## ▶️ Uso
@@ -424,13 +500,13 @@ Resultado esperado:
 
 ## 🧩 Estado del proyecto
 
-✔ Versión **4.0.0** – Configuración externa JSON / YAML  
+✔ Versión **5.0.0** — Motor de renombrado basado en reglas  
+✔ Configuración externa mediante archivos JSON y YAML  
 ✔ Compatibilidad total con uso por CLI  
-✔ Reglas declarativas de renombrado  
-✔ Procesamiento recursivo completo  
-✔ Dry-run seguro por defecto  
-✔ Diseño modular y extensible
-
+✔ Reglas declarativas por tipo de archivo  
+✔ Procesamiento recursivo con estrategias de numeración configurables  
+✔ Ejecución segura con modo *dry-run* por defecto  
+✔ Diseño modular, extensible y orientado a buenas prácticas de backend
 
 ---
 ## 📊 Evolución y Métricas
@@ -446,7 +522,8 @@ Este proyecto sigue **versionado semántico** y demuestra crecimiento medible a 
 | v2.0.1 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v3.0.0 | 324 | 4 | 6 | 3 | 2025-12-28 |
 | v4.0.0 | 533 | 5 | 6 | 6 | 2026-01-09 |
-*Actualizado al 09/01/2026*
+| v5.0.0 |     |   |   |   | 2026-01-10 |
+*Actualizado al 10/01/2026*
 
 ```bash
 # Nota: Ejecuta `./stats/full_stats.sh` para métricas exactas.*
@@ -468,22 +545,25 @@ python -m app.main --help
 git checkout v2.0.1  
 python -m app.main --help
 
-#### 4. Versión actual con procesamiento recursivo (v3.0.0)
+#### 4. Versión con procesamiento recursivo (v3.0.0)
 git checkout v3.0.0  
 python -m app.main --help  
 
-#### 5. – Versión actual con soporte para configuración externa en JSON y YAML (v4.0.0)
-git checkout main  
+#### 5. – Versión con soporte para configuración externa en JSON y YAML (v4.0.0)
+git checkout v4.0.0
 python -m app.main --help  
 
-#### 6. Siempre volver a main cuando termines
+#### 6. – Versión actual. Evolución hacia un motor de renombrado basado en reglas, permitiendo definir comportamientos específicos por tipo de archivo a través de configuración declarativa (JSON/YAML)- (v5.0.0)
+git checkout main  
+python -m app.main --help 
+
+#### 7. Siempre volver a main cuando termines
 git checkout main
 
 ---
 
 ## 🚧 Posibles mejoras futuras
 
-- Reglas avanzadas por tipo de archivo
 - Filtros por extensión y patrones
 - Modo undo / rollback
 - Publicación como paquete pip

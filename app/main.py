@@ -11,13 +11,19 @@ def main():
         epilog="""
         Casos de uso:
             # Modo original (sigue funcionando):
-                python -m app.main --path ./docs --prefix doc --recursive
+                python -m app.main --path ./examples/test_files --prefix doc --recursive
   
-            # Con archivo de configuración (desde v4.0.0):
-                python -m app.main --config config/pepe_proyectos_2025/pepe_projects_2025.yaml
+            # Con archivo de configuración (v4.0.0):
+                python -m app.main --config config/basic_v4.json
+                python -m app.main --config config/basic_v4.yaml
+
+            # Con archivo de configuración (desde v5.0.0):
+                python -m app.main --config config/renamer.json
+                python -m app.main --config config/renamer.yaml
   
-            # Ver plantilla de configuración:
+              # Ver plantilla de configuración:
                 python -m app.main --show-template yaml
+                python -m app.main --show-template json
   
             # Ayuda completa:
                 python -m app.main --help
@@ -142,6 +148,12 @@ def main():
     config = ConfigLoader.from_cli_args(args)
     config["path"] = str(folder_path)
     
+    # Asegurarse de copiar flags importantes a config
+    config["recursive"] = getattr(args, "recursive", config.get("recursive", False))
+    config["global_index"] = getattr(args, "global_index", config.get("global_index", False))
+    config["start_index"] = getattr(args, "start_index", config.get("start_index", 1))
+    config["dry_run"] = not getattr(args, "execute", not config.get("dry_run", True))
+
     _run_with_config(config)
 
 
@@ -167,13 +179,14 @@ def _run_with_config(config: dict):
     
     # Llamar a la función existente rename_files con los nuevos parámetros
     rename_files(
-    folder_path=config["path"],
-    prefix=effective_prefix,
-    dry_run=config.get("dry_run", True),
-    rules_config=rules_config,
+        folder_path=config["path"],
+        prefix=effective_prefix,
+        dry_run=config.get("dry_run", True),
+        rules_config=config.get("rules", {}),
+        start_index=config.get("start_index", 1),
+        recursive=config.get("recursive", False),
+        global_index=config.get("global_index", False)
     )
-
-
 
 if __name__ == "__main__":
     main()

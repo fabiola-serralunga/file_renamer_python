@@ -1,6 +1,9 @@
 {
   "path": "./examples/test_mixed",
   "dry_run": true,
+  "recursive": false,
+  "global_index": false,
+  
   "rules": {
     "default": {
       "prefix": "file",
